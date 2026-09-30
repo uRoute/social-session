@@ -1,0 +1,57 @@
+<section class="bg-white p-2 rounded-lg w-1/2 mx-auto my-3">
+    <h1 class="font-bold text-xl">Register form</h1>
+    
+    @if(resMessage){
+        <p class="bg-rose-400 p-3 rounded-xl w-1/2 mx-auto my-2"> {{resMessage}} </p>   
+    }
+
+
+    <div class="container mx-auto p-2">
+        <form [formGroup]="registerForm" (ngSubmit)="register()">
+            <div class="my-2">
+                <label class="font-medium" for="name">Your Full Name</label>
+                <input formControlName="name" class="px-2 py-1 rounded-lg focus:border-mainColor block w-full my-1"
+                    placeholder="ex:Youssef Samir" type="text" id="name">
+            </div>
+            <div class="my-2">
+                <label class="font-medium" for="userName">User_Name</label>
+                <input formControlName="username" class="px-2 py-1 rounded-lg focus:border-mainColor block w-full my-1"
+                    placeholder="ex:Usef_samir12" type="text" id="userName">
+            </div>
+            <div class="my-2">
+                <label class="font-medium" for="email">Email</label>
+                <input formControlName="email" class="px-2 py-1 rounded-lg focus:border-mainColor block w-full my-1"
+                    placeholder="Youssef@gmail.com" type="email" id="email">
+            </div>
+            <div class="my-2 mx-auto flex justify-center items-center">
+                <label class="font-medium mx-1" for="male">Male</label>
+                <input name="gender" formControlName="gender" class="" placeholder="Your full name" type="radio"
+                    value="male" id="male">
+                <label class="font-medium mx-1" for="female">female</label>
+                <input name="gender" formControlName="gender" class="" placeholder="Your full name" type="radio"
+                    value="female" id="female">
+            </div>
+            <div class="my-2">
+                <label class="font-medium" for="date">Date of birth</label>
+                <input formControlName="dateOfBirth"
+                    class="px-2 py-1 rounded-lg focus:border-mainColor block w-full my-1" placeholder="1998-7-31"
+                    type="date" id="date">
+            </div>
+            <div class="my-2">
+                <label class="font-medium" for="pass">Password</label>
+                <input formControlName="password" class="px-2 py-1 rounded-lg focus:border-mainColor block w-full my-1"
+                    placeholder="YourPassword@222" type="password" id="pass">
+            </div>
+            <div class="my-2">
+                <label class="font-medium" for="rePass">Confirm password</label>
+                <input formControlName="rePassword"
+                    class="px-2 py-1 rounded-lg focus:border-mainColor block w-full my-1" placeholder="YourPassword@222"
+                    type="password" id="rePass">
+            </div>
+            <button  class="form-btn ">Submit</button>
+        </form>
+
+
+    </div>
+
+</section>
