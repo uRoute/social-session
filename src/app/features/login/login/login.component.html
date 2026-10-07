@@ -1,1 +1,54 @@
-<p>login works!</p>
+<section class="bg-white p-2 rounded-lg w-1/2 mx-auto my-3">
+    <h1 class="font-bold text-xl p-2">Login Form</h1>
+
+    @if(resMessage){
+    <p class="bg-rose-400 p-3 rounded-xl w-1/2 mx-auto my-2"> {{resMessage}} </p>
+    }
+
+
+    <div class="container mx-auto p-2">
+        <form [formGroup]="loginForm" (ngSubmit)="login()">
+           
+            
+            <div class="my-2">
+                @let emailFormControl = loginForm.get('email');
+                <label class="font-medium" for="email">Email</label>
+                <input [class]="{
+                        'input-valid' : !emailFormControl?.errors && emailFormControl?.touched,
+                        'input-invalid' : emailFormControl?.errors && emailFormControl?.touched
+                    } " formControlName="email" class="px-2 py-1 rounded-lg focus:border-mainColor block w-full my-1"
+                    placeholder="Youssef@gmail.com" type="email" id="email">
+                @if(emailFormControl?.errors && emailFormControl?.touched ){
+                <div class="p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft" role="alert">
+                    @if(emailFormControl?.getError('required')){ <p class="font-medium"> email is Required </p> }
+                    @if(emailFormControl?.getError('email')){ <p class="font-medium"> email is not valid <span
+                            class="text-gray-500">Ex:Adam_John@gmail.com</span></p> }
+                </div>
+                }
+            </div>
+            <div class="my-2">
+                @let passFormControl = loginForm.get('password');
+
+                <label class="font-medium" for="pass">Password</label>
+                <input [class]="{
+                        'input-valid' : !passFormControl?.errors && passFormControl?.touched,
+                        'input-invalid' : passFormControl?.errors && passFormControl?.touched
+                    } " formControlName="password"
+                    class="px-2 py-1 rounded-lg focus:border-mainColor block w-full my-1" placeholder="YourPassword@222"
+                    type="password" id="pass">
+                @if(passFormControl?.errors && passFormControl?.touched ){
+                <div class="p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft" role="alert">
+                    @if(passFormControl?.getError('required')){ <p class="font-medium"> Password is Required </p> }
+                    @if(passFormControl?.getError('pattern')){ <p class="font-medium"> Password is not valid <span
+                            class="text-gray-500">Ex:AdamJohn@12</span></p> }
+                </div>
+                }
+            </div>
+            <a class="text-center text-lg font-medium underline block my-2" routerLink="/register">Don't have an account ?</a>
+            <button [disabled]="loginForm.invalid" class="form-btn ">Login</button>
+        </form>
+
+
+    </div>
+
+</section>

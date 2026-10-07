@@ -1,54 +1,144 @@
 <section class="bg-white p-2 rounded-lg w-1/2 mx-auto my-3">
-    <h1 class="font-bold text-xl">Register form</h1>
-    
+    <h1 class="font-bold text-xl p-2">Register form</h1>
+
     @if(resMessage){
-        <p class="bg-rose-400 p-3 rounded-xl w-1/2 mx-auto my-2"> {{resMessage}} </p>   
+    <p class="bg-rose-400 p-3 rounded-xl w-1/2 mx-auto my-2"> {{resMessage}} </p>
     }
 
 
     <div class="container mx-auto p-2">
         <form [formGroup]="registerForm" (ngSubmit)="register()">
             <div class="my-2">
+                @let nameFormControl = registerForm.get('name');
                 <label class="font-medium" for="name">Your Full Name</label>
-                <input formControlName="name" class="px-2 py-1 rounded-lg focus:border-mainColor block w-full my-1"
+                <input [class]="{
+                        'input-valid' : !nameFormControl?.errors && nameFormControl?.touched,
+                        'input-invalid' : nameFormControl?.errors && nameFormControl?.touched
+                    } " formControlName="name" class="px-2 py-1 rounded-lg focus:border-mainColor block w-full my-1"
                     placeholder="ex:Youssef Samir" type="text" id="name">
+                @if(nameFormControl?.errors && nameFormControl?.touched ){
+                <div class="p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft" role="alert">
+                    @if(nameFormControl?.getError('required')){ <p class="font-medium"> Name is Required </p> }
+                    @if(nameFormControl?.getError('minlength')){ <p class="font-medium"> Name is Short </p> }
+                    @if(nameFormControl?.getError('pattern')){ <p class="font-medium"> Name is not valid <span
+                            class="text-gray-500">Ex:Adam John</span></p> }
+                </div>
+                }
             </div>
             <div class="my-2">
+                @let userNameFormControl = registerForm.get('username');
+
                 <label class="font-medium" for="userName">User_Name</label>
-                <input formControlName="username" class="px-2 py-1 rounded-lg focus:border-mainColor block w-full my-1"
-                    placeholder="ex:Usef_samir12" type="text" id="userName">
+                <input [class]="{
+                        'input-valid' : !userNameFormControl?.errors && userNameFormControl?.touched,
+                        'input-invalid' : userNameFormControl?.errors && userNameFormControl?.touched
+                    } " formControlName="username"
+                    class="px-2 py-1 rounded-lg focus:border-mainColor block w-full my-1" placeholder="ex:Usef_samir12"
+                    type="text" id="userName">
+                @if(userNameFormControl?.errors && userNameFormControl?.touched ){
+                <div class="p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft" role="alert">
+                    @if(userNameFormControl?.getError('maxlength')){ <p class="font-medium"> User_name is logn </p> }
+                    @if(userNameFormControl?.getError('minlength')){ <p class="font-medium"> User_name is Short </p> }
+                    @if(userNameFormControl?.getError('pattern')){ <p class="font-medium"> User_name is not valid <span
+                            class="text-gray-500">Ex:adam_9</span></p> }
+                </div>
+                }
             </div>
             <div class="my-2">
+                @let emailFormControl = registerForm.get('email');
                 <label class="font-medium" for="email">Email</label>
-                <input formControlName="email" class="px-2 py-1 rounded-lg focus:border-mainColor block w-full my-1"
+                <input [class]="{
+                        'input-valid' : !emailFormControl?.errors && emailFormControl?.touched,
+                        'input-invalid' : emailFormControl?.errors && emailFormControl?.touched
+                    } " formControlName="email" class="px-2 py-1 rounded-lg focus:border-mainColor block w-full my-1"
                     placeholder="Youssef@gmail.com" type="email" id="email">
+                @if(emailFormControl?.errors && emailFormControl?.touched ){
+                <div class="p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft" role="alert">
+                    @if(emailFormControl?.getError('required')){ <p class="font-medium"> email is Required </p> }
+                    @if(emailFormControl?.getError('email')){ <p class="font-medium"> email is not valid <span
+                            class="text-gray-500">Ex:Adam_John@gmail.com</span></p> }
+                </div>
+                }
             </div>
             <div class="my-2 mx-auto flex justify-center items-center">
+                @let genderFormControl = registerForm.get('gender');
+
                 <label class="font-medium mx-1" for="male">Male</label>
-                <input name="gender" formControlName="gender" class="" placeholder="Your full name" type="radio"
+                <input [class]="{
+                        'input-valid' : !genderFormControl?.errors && genderFormControl?.touched,
+                        'input-invalid' : genderFormControl?.errors && genderFormControl?.touched
+                    } " name="gender" formControlName="gender" class="" placeholder="Your full name" type="radio"
                     value="male" id="male">
                 <label class="font-medium mx-1" for="female">female</label>
-                <input name="gender" formControlName="gender" class="" placeholder="Your full name" type="radio"
+                <input [class]="{
+                        'input-valid' : !genderFormControl?.errors && genderFormControl?.touched,
+                        'input-invalid' : genderFormControl?.errors && genderFormControl?.touched
+                    } " name="gender" formControlName="gender" class="" placeholder="Your full name" type="radio"
                     value="female" id="female">
+                @if(genderFormControl?.errors && genderFormControl?.touched ){
+                <div class="p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft" role="alert">
+                    @if(genderFormControl?.getError('required')){ <p class="font-medium"> Gender is Required </p> }
+                    @if(genderFormControl?.getError('pattern')){ <p class="font-medium"> Gender is not valid <span
+                            class="text-gray-500">Male || Female</span></p> }
+                </div>
+                }
             </div>
             <div class="my-2">
+                @let dateFormControl = registerForm.get('dateOfBirth');
+
                 <label class="font-medium" for="date">Date of birth</label>
-                <input formControlName="dateOfBirth"
+                <input [class]="{
+                        'input-valid' : !dateFormControl?.errors && dateFormControl?.touched,
+                        'input-invalid' : dateFormControl?.errors && dateFormControl?.touched
+                    } " formControlName="dateOfBirth"
                     class="px-2 py-1 rounded-lg focus:border-mainColor block w-full my-1" placeholder="1998-7-31"
                     type="date" id="date">
+                @if(dateFormControl?.errors && dateFormControl?.touched ){
+                <div class="p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft" role="alert">
+                    @if(dateFormControl?.getError('required')){ <p class="font-medium"> Birth of date is Required </p> }
+                </div>
+                }
             </div>
             <div class="my-2">
+                @let passFormControl = registerForm.get('password');
+
                 <label class="font-medium" for="pass">Password</label>
-                <input formControlName="password" class="px-2 py-1 rounded-lg focus:border-mainColor block w-full my-1"
-                    placeholder="YourPassword@222" type="password" id="pass">
+                <input [class]="{
+                        'input-valid' : !passFormControl?.errors && passFormControl?.touched,
+                        'input-invalid' : passFormControl?.errors && passFormControl?.touched
+                    } " formControlName="password"
+                    class="px-2 py-1 rounded-lg focus:border-mainColor block w-full my-1" placeholder="YourPassword@222"
+                    type="password" id="pass">
+                @if(passFormControl?.errors && passFormControl?.touched ){
+                <div class="p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft" role="alert">
+                    @if(passFormControl?.getError('required')){ <p class="font-medium"> Password is Required </p> }
+                    @if(passFormControl?.getError('pattern')){ <p class="font-medium"> Password is not valid <span
+                            class="text-gray-500">Ex:AdamJohn@12</span></p> }
+                </div>
+                }
             </div>
             <div class="my-2">
+                @let rePassFormControl = registerForm.get('rePassword');
                 <label class="font-medium" for="rePass">Confirm password</label>
-                <input formControlName="rePassword"
+                <input [class]="{
+                        'input-valid' : !registerForm?.errors && (rePassFormControl?.dirty || rePassFormControl?.touched),
+                        'input-invalid' : registerForm?.errors && (rePassFormControl?.dirty || rePassFormControl?.touched)
+                    } " formControlName="rePassword"
                     class="px-2 py-1 rounded-lg focus:border-mainColor block w-full my-1" placeholder="YourPassword@222"
                     type="password" id="rePass">
+                @if(registerForm?.errors && (rePassFormControl?.dirty || rePassFormControl?.touched) ){
+                <div class="p-4 mb-4 text-sm text-fg-danger-strong rounded-base bg-danger-soft" role="alert">
+                    @if(registerForm?.getError('missmatch')){ <p class="font-medium"> Confirm password is not match
+                        password </p> }
+                    @if(rePassFormControl?.getError('required')){ <p class="font-medium"> Confirm password is Required
+                    </p> }
+                    @if(rePassFormControl?.getError('pattern')){ <p class="font-medium"> Confirm password is not valid
+                        <span class="text-gray-500">Ex:Adam John</span></p> }
+                </div>
+                }
             </div>
-            <button  class="form-btn ">Submit</button>
+            <a class="text-center text-lg font-medium underline block my-2" routerLink="/login">Already have an account ?</a>
+            <button [disabled]="registerForm.invalid" class="form-btn ">Submit</button>
         </form>
 
 

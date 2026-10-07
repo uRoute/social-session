@@ -7,9 +7,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../../../core/services/Auth/auth.service';
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-register',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule , RouterLink],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
@@ -38,7 +39,7 @@ export class RegisterComponent {
       Validators.required,
       Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>]).{8,}$/),
     ]),
-  }, {validators : [this.confirmPassword]} );
+  }, this.confirmPassword );
   
   confirmPassword(g: AbstractControl) {
     return g.get('password')?.value === g.get('rePassword')?.value ? null : { missmatch: true };
