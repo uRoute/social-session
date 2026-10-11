@@ -17,15 +17,12 @@ export class PostsComponent implements OnInit {
   posts: WritableSignal<IPost[]> = signal([]);
   postBody: FormControl = new FormControl();
   postPrivacy: FormControl = new FormControl('public');
-
   ngOnInit(): void {
     this.getAllPosts();
   }
-
   getAllPosts() {
     this._PostsService.GetAllPosts().subscribe({
       next: (res) => {
-        console.log(res);
         this.posts.set(res.data.posts);
       },
       error: (err) => {
@@ -33,7 +30,6 @@ export class PostsComponent implements OnInit {
       },
     });
   }
-  // FileReader
   holdImage(e: Event) {
     let imageFile = e.target as HTMLInputElement;
     if (imageFile.files && imageFile.files.length > 0) {
@@ -63,13 +59,11 @@ export class PostsComponent implements OnInit {
     }
     this._PostsService.CreatePost(formData).subscribe({
       next: (res) => {
-        console.log(res);
         form.reset()
         this.imgURL.set(null)
         this.getAllPosts()
       },
       error: (err) => {
-        // Logic
         console.log(err);
       },
     });
