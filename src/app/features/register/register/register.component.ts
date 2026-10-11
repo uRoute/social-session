@@ -52,6 +52,7 @@ export class RegisterComponent {
           console.log(res);
         },
         error: (err) => {
+          // logic
           console.log(err);
           this.resMessage = err.error.message;
         },
